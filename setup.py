@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='deadly',  # 项目名称
-    version='1.3',    # 项目版本
+    version='1.3.3',    # 项目版本
     packages=find_packages(),  # 自动发现包
     install_requires=[],
     author='xugoudaobai',  # 作者名称
