@@ -221,17 +221,17 @@ def caln(list_1):
             a=st.pop()
             if i == '^':#需要给个解决这玩意的好办法，打这样的代码太累了
                 c=a**b
-            elif i='/':
+            elif i=='/':
                 c=a/b
-            elif i='//':
+            elif i=='//':
                 c=a//b
-            elif i='%':
+            elif i=='%':
                 c=a%b
-            elif i='*':
+            elif i=='*':
                 c=a*b
-            elif i='+':
+            elif i=='+':
                 c=a+b
-            elif i='-':
+            elif i=='-':
                 c=a-b
             
             st.append(c)
