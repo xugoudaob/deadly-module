@@ -1,7 +1,8 @@
-#deadly1.3.3 by xgdb
+#deadly1.3.4 by xgdb
 import sys
 import time
 import platform
+__all__=['deadly','deadly_exit','gua_n','plus','gua','jinz','jz','rpn','caln']
 class DeadlyError(Exception):
     def __init__(self, message ="You met an DeadlyError,which means maybe you are Deadly!"):
         super().__init__(message)
