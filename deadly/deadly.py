@@ -1,8 +1,8 @@
-#deadly1.3.4 by xgdb
+#deadly1.3.4.2-beta by xgdb
 import sys
 import time
 import platform
-__all__=['deadly','deadly_exit','gua_n','plus','gua','jinz','jz','rpn','caln']
+__all__=['deadly','deadly_exit','gua_n','plus','gua','jinz','jz','rpn','caln','guess_num']
 class DeadlyError(Exception):
     def __init__(self, message ="You met an DeadlyError,which means maybe you are Deadly!"):
         super().__init__(message)
@@ -250,6 +250,68 @@ def caln(list_1):
             add+=str(i)+' '
         rpn(add)
     
+def guess_num(r1 = 0,r2 = 100,fla=False):
+    from random import randint
+    yn=["y","n","Y","N"]
+    if not fla:
+        ex=input("是否以默认数字({}-{})进行游玩（y/n）".format(r1, r2))
+        #I hate a programming language which has no do-while
+        while not (ex in yn):
+            ex=input("是否以默认数字({}-{})进行游玩（y/n）".format(r1, r2))
+        if ex=="y" or ex=="Y":
+            fla=True
+        elif ex=="n" or ex=="N":
+            try:
+                r1=int(input("请输入一个有效的小正值"))
+                r2=int(input("请输入一个有效的大正值"))
+            except:
+                print("err......")
+                deadly()
+    if r1+1 < r2-1:
+        fla=True #免得有些人跳出循环不带True的
+    elif 0<= r2-r1 <=2:
+        print("恭喜你，你成功猜出了你要的数是",(r1+r2)/2)
+        deadly()
+    elif r2-r1 < 0:
+        print("我好心，用python特性把它调过来供你游戏")
+        r1,r2=r2,r1
+        fla=True
+    else:
+        print("太招笑了(一般不会到这个条件)")
+    c_num = randint(r1, r2)
+    n_min=r1;n_max=r2
+    if fla:#在范围为0-0出现的问题，还好被下面的while挡住了
+        print("欢迎来到猜数游戏！这里已经有了一个{}到{}之间的整数。".format(r1, r2))
+    while fla: #套用变量检验，免得有些人跳出检查环节fla不带True的
+        try:
+            if n_min+1 >= n_max-1:
+                print("因为作者认为没必要猜了，所以恭喜你猜出正确数字{}！".format(int((n_max+n_min)/2)))
+                break
+            guess = int(input("请输入你猜的数字（({}-{})）：".format(n_min, n_max)))
+            
+            if guess == c_num:
+                print("恭喜你猜对了！正确数字就是 {}！".format(c_num))
+                break
+            elif guess in list(range(n_min,n_max+1)):
+                # 根据猜的数调整范围，并生成新的正确数
+                if guess < c_num:
+                    print("小！")
+                    n_min = guess+1
+                    n_max = n_max
+                elif guess > c_num:
+                    print("大！")
+                    n_min = n_min
+                    n_max = guess-1
+                # 在新的范围内随机选一个数作为新的正确数
+                c_num = randint(n_min, n_max)
+                print("新的数已在 {} 到 {} 之间重新生成！".format(n_min, n_max))
+            else:
+                raise DeadlyError("out1")
+        except ValueError:
+            print("请输入一个有效的整数！")
+        except:
+            raise DeadlyError("out0")
+
 
 
 if __name__=='__main__':
