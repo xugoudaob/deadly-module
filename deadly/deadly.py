@@ -1,4 +1,5 @@
 #deadly1.3.4.4-beta by xgdb
+#add more old-virsion-friendly codes
 import sys
 import time
 #import platform      做一个废案留下的遗产...
