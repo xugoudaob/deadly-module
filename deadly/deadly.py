@@ -100,7 +100,7 @@ def gua():
         return b
     ls=nun(seed,card);lst=prch(ls)
     tim=time.time()-tim
-    print("现在，口已经根据你给的字符用了{}}打乱了牌，并得到了一个牌堆。\n请你为他提供6个不重复的牌号以完成算卦".format(tim))
+    print("现在，口已经根据你给的字符用了{}打乱了牌，并得到了一个牌堆。\n请你为他提供6个不重复的牌号以完成算卦".format(tim))
     i=0;lis=[]
     while i<6:
         mber=int(input("第"+str(i+1)+"张(已抽取的:"+str(lis)+")"))
