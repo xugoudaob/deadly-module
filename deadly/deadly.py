@@ -3,6 +3,7 @@
 
 import sys
 import time
+import operator as op
 #import platform      做一个废案留下的遗产...
 
 __all__=['deadly','deadly_exit','gua_n','plus','gua','jinz','jz','rpn','caln','guess_num']
@@ -208,16 +209,12 @@ def jz(k,x,y):
     raise DeadlyError("Meet unknown error")
 
 
-#20251015
+#20251015 I finally remove so many if and use lamba,however,two operators still invaild
 def rpn(user_input=''):#逆波兰表达式
     user_input += input("请输入逆波兰表达式：")
-    # 替换逗号为空格，然后按空格分割
-    tokens = user_input.replace(',', ' ').split()
-    # 去除空字符串
-    tokens = [token for token in tokens if token.strip()]
+    tokens = user_input.replace(',', ' ').split()    # 替换逗号为空格，然后按空格分割
+    tokens = [token for token in tokens if token.strip()]# 去除空字符串
     caln(tokens)
-
-
 
 def caln(list_1):
     from decimal import Decimal, getcontext
@@ -225,28 +222,24 @@ def caln(list_1):
     st=[];top=-1
     if not type(list_1)==list:
         return
-    op=['+','-','*','/','//','%','^']
+    opm={
+        #'**':op.pow,
+        '^': op.pow,
+        '/': op.truediv,
+        #'//': op.floordiv,
+        '%': op.mod,
+        '*': op.mul,
+        '+': op.add,
+        '-': op.sub
+        }
     if list_1[0] in op or list_1[1] in op:
+        print('双运算符还在研发中，尽请期待')
         return
     for i in list_1:
         if i in op:
             b=st.pop()
             a=st.pop()
-            if i == '^':#需要给个解决这玩意的好办法，打这样的代码太累了
-                c=a**b
-            elif i=='/':
-                c=a/b
-            elif i=='//':
-                c=a//b
-            elif i=='%':
-                c=a%b
-            elif i=='*':
-                c=a*b
-            elif i=='+':
-                c=a+b
-            elif i=='-':
-                c=a-b
-
+            c = opm.get(i, lambda *_: None)(a, b)
             st.append(c)
             del c
         else:
