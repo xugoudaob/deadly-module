@@ -1,11 +1,10 @@
 #deadly1.3.4.4-beta by xgdb
-#add more old-virsion-friendly codes
-
-
+#20250906 add more old-virsion-friendly codes
 
 import sys
 import time
 #import platform      做一个废案留下的遗产...
+
 __all__=['deadly','deadly_exit','gua_n','plus','gua','jinz','jz','rpn','caln','guess_num']
 class DeadlyError(Exception):
     def __init__(self, message ="You met an DeadlyError,which means maybe you are Deadly!"):
@@ -26,6 +25,9 @@ def deadly(t1='Deadly! '):
 def deadly_exit(t2='Deadly! '):
     deadly(t2)
     sys.exit()
+
+
+#20251015     remove and fix something
 def gua_n(l1,l2,num):
     print("注：每一卦形代表一定的事物。乾代表天，坤代表地，巽（xùn）代表风，震代表雷，坎代表水，离代表火，艮（gèn）代表山，兑代表泽。")
     yaox={'111':"天",'000':'地','001':'雷','100':'山','101':'火','010':'水','011':'泽','110':'风'}
@@ -49,14 +51,11 @@ def gua():
     yao={0:'--  --',1:'------'}
     print('现在，口问你有用多少张牌\n当输入"0"时，他会用12张牌，输入"1"时也为12张，"2"时给18张，以此类推。')
     ca=int(input('请输入:'))
-    def card_mk(ca=12):
-        if ca<0:
-            print('口认为你是个sb，并给你12张牌')
-            card=12
-        else:
-            card=ca*6+6
-        return card
-    card=card_mk(ca)
+    if ca<0:
+        print('口认为你是个sb，并给你12张牌')
+        card=12
+    else:
+        card=ca*6+6
     print('现在，你使用了'+str(card)+'张牌')
     seed=input('请输入一些字符以洗牌(增加混乱度/熵值)')
     #随机+随机(multiple random)
@@ -98,19 +97,18 @@ def gua():
                     b[e]+=1
                     nd+=1
         return b
-    ls=nun(seed,card);lst=prch(ls)
+    lst=prch(nun(seed,card))
     tim=time.time()-tim
     print("现在，口已经根据你给的字符用了{}打乱了牌，并得到了一个牌堆。\n请你为他提供6个不重复的牌号以完成算卦".format(tim))
     i=0;lis=[]
     while i<6:
-        mber=int(input("第"+str(i+1)+"张(已抽取的:"+str(lis)+")"))
+        mber=int(input("第{0}张(已抽取的:{1})".format(str(i + 1), str(lis))))
         if 0<=mber<=card:
             if mber in lis:
                 print("重复")
                 i-=1
             else:
                 lis.append(mber)
-         
         else:
             print("你在干什么，一共",card,"张牌，且顺序为0到",card-1,"，你怎么得到",mber,"的？")
             i-=1
@@ -127,6 +125,10 @@ def gua():
     print(gx1+'\n\n'+gx2)
     plus(l1,l2,num)
 
+
+
+
+#20251015
 def jinz():
     from deadly import jz
     x=input("请输入进制数(2～36),没有不输")
@@ -187,7 +189,6 @@ def jz(k,x,y):
         return p
     else:
         raise DeadlyError("暂未开放")
-
     if k==0:
         l=0
         for i in y:
@@ -206,6 +207,8 @@ def jz(k,x,y):
         return s
     raise DeadlyError("Meet unknown error")
 
+
+#20251015
 def rpn(user_input=''):#逆波兰表达式
     user_input += input("请输入逆波兰表达式：")
     # 替换逗号为空格，然后按空格分割
@@ -258,7 +261,10 @@ def caln(list_1):
         for i in st:
             add+=str(i)+' '
         rpn(add)
-    
+
+
+
+#20251015
 def guess_num(r1 = 0,r2 = 100,fla=False):
     from random import randint
     yn=["y","n","Y","N"]
@@ -322,7 +328,8 @@ def guess_num(r1 = 0,r2 = 100,fla=False):
             raise DeadlyError("out0")
 
 
-
+#If you open it, then you'll get it(No,then you have to take the power of Deadly
 if __name__=='__main__':
     print('你是真的deadly(You\'re a truly Deadly)你知道吗?\n')
     deadly()
+    raise DeadlyError("Tried to open a file without import.")
