@@ -6,7 +6,7 @@ setup(
     packages=find_packages(),  # 自动发现包
     install_requires=[],
     author='xugoudaobai',  # 作者名称
-    author_email='2093289509@qq.com',  # 作者邮箱
+    author_email='xgdbtyx@qq.com',  # 作者邮箱
     description='A "deadly"module in Python',  # 项目描述
     url='https://github.com/xugoudaobai/Deadly-module',  # 项目主页
     classifiers=[
