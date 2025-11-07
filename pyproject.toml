@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name='deadly'  # 项目名称
 version='1.3.4'    # 项目版本
 authors = [
-    {name = "xugoudaobai", email = "2093289509@qq.com"},
+    {name = "xugoudaobai", email = "xgdbtyx@qq.com"},
 ]
 description = "A 'deadly' module in Python"
 readme = "README.md"
