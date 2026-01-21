@@ -16,11 +16,16 @@ class DeadlyError(Exception):
         return f"{self.message}"
 
 def deadly(t1='Deadly! '):
+#20260122 add a way to know type(old-vision-friendly, of course)
     t=''
     if type(t1) != str:
-        raise DeadlyError("Maybe the programmer could not know which type on the function")
+        if not str(t1):
+            raise DeadlyError("Maybe the programmer could not know which type on the function")
+        else:
+            t1=str(t1)
         #return None
     while t!=t1:
+    #想改啥随便改，这玩意的目的就是有个人在你耳边反复说"deadly"才诞生的
         print('deadly')
         t=input('>>> ')
 def deadly_exit(t2='Deadly! '):
@@ -28,21 +33,23 @@ def deadly_exit(t2='Deadly! '):
     sys.exit()
 
 
-#20251015     remove and fix something
+#20251015 20260122    remove and fix something
 def gua_n(l1,l2,num):
     print("注：每一卦形代表一定的事物。乾代表天，坤代表地，巽（xùn）代表风，震代表雷，坎代表水，离代表火，艮（gèn）代表山，兑代表泽。")
     yaox={'111':"天",'000':'地','001':'雷','100':'山','101':'火','010':'水','011':'泽','110':'风'}
     x=yaox[l1]+yaox[l2]
     print(x,num)
-
+#易经内容就不写进代码了
 def plus(l1,l2,num):
-    i=''
-    while i!='y' and i!="Y":
-        i=input("Get return?(y/n)")
-        if i=='n' or i=='N':
+#史上最简陋的检验是否的函数段
+    while True:
+        i = input("Get return？(y/n): ").strip().lower()
+        if i == 'y':
+            gua_n(l1,l2,num)
             break
-    else:
-        gua_n(l1,l2,num)
+        elif i == 'n':
+            break
+
 
 def gua():
     #基于python的一种算卦方法（张口泽版）(Suggested by Mr.口)
@@ -55,6 +62,7 @@ def gua():
     if ca<0:
         print('口认为你是个sb，并给你12张牌')
         card=12
+    elif ca==0: card=12
     else:
         card=ca*6+6
     print('现在，你使用了'+str(card)+'张牌')
@@ -100,7 +108,7 @@ def gua():
         return b
     lst=prch(nun(seed,card))
     tim=time.time()-tim
-    print("现在，口已经根据你给的字符用了{}打乱了牌，并得到了一个牌堆。\n请你为他提供6个不重复的牌号以完成算卦".format(tim))
+    print("现在，口已经根据你给的字符用了{}秒打乱了牌，并得到了一个牌堆。\n请你为他提供6个不重复的牌号以完成算卦".format(tim))
     i=0;lis=[]
     while i<6:
         mber=int(input("第{0}张(已抽取的:{1})".format(str(i + 1), str(lis))))
