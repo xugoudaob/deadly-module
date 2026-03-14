@@ -415,6 +415,7 @@ def determinant():
         if ans == 'n' or ans=='N':
             print("BYEEEEEE")
             break
+
 #If you open it, then you'll get it(No,then you have to take the power of Deadly
 if __name__=='__main__':
     print('你是真的deadly(You\'re a truly Deadly)你知道吗?\n')
