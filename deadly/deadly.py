@@ -1,12 +1,13 @@
-#deadly1.3.4.4-beta by xgdb
+#deadly1.3.5-withnodebug by xgdb
 #20250906 add more old-virsion-friendly codes
 
 import sys
 import time
 import operator as op
+from fractions import Fraction
 #import platform      做一个废案留下的遗产...
 
-__all__=['deadly','deadly_exit','gua_n','plus','gua','jinz','jz','rpn','caln','guess_num']
+__all__=['deadly','deadly_exit','gua_n','plus','gua','jinz','jz','rpn','caln','guess_num','determinant']
 class DeadlyError(Exception):
     def __init__(self, message ="You met an DeadlyError,which means maybe you are Deadly!"):
         super().__init__(message)
@@ -328,6 +329,92 @@ def guess_num(r1 = 0,r2 = 100,fla=False):
         except:
             raise DeadlyError("out0")
 
+#20260314 Two new defines
+def det(matrix):
+    #计算n阶行列式
+    n = len(matrix)
+    a = [row[:] for row in matrix]
+    sign = 1
+
+    for k in range(n):
+        piv_row = None
+        for i in range(k, n):
+            if a[i][k] != 0:
+                piv_row = i
+                break
+
+        if piv_row is None:
+            return Fraction(0)
+
+        if piv_row != k:
+            a[k], a[piv_row] = a[piv_row], a[k]
+            sign *= -1
+
+        piv = a[k][k]
+        for i in range(k + 1, n):
+            factor = a[i][k] / piv
+            if factor != 0:
+                for j in range(k,n):
+                    a[i][j] -= factor * a[k][j]
+
+    det_val = sign
+    for i in range(n):
+        det_val *= a[i][i]
+    return det_val
+
+def determinant():
+    n=0
+    while True:
+        try:
+            n = int(input("请输入阶数 n: ").strip())
+        except (ValueError, EOFError):
+            deadly_exit()
+        if n == 0:
+            print("0")
+        elif n == 1:
+            print(f"请输入 {n} 行，每行 {n} 个整数\n"+f"Please input {n} lines with {n} numbers：",end='')
+            try:
+                print(int(input()))
+            except:
+                deadly()
+        else:
+            mat = []
+            print(f"请输入 {n} 行，每行 {n} 个整数（用空格分隔）")
+            print(f"Please input {n} lines with {n} numbers（separated by space(s)）：")
+            for i in range(n):
+                while True:
+                    try:
+                        line = input().strip()
+                    except EOFError:
+                        print("输入中断，程序退出。")
+                        return
+                    if not line:
+                        continue
+                    nums = line.split()
+                    if len(nums) != n:
+                        print(f"需要 {n} 个数，请重新输入该行：")
+                        continue
+                    try:
+                        row = [Fraction(int(x)) for x in nums]
+                        mat.append(row)
+                        break
+                    except ValueError:
+                        print("请输入整数，重新输入该行：")
+                        continue
+
+            result = det(mat)
+            if result.denominator == 1:
+                print("行列式结果:", result.numerator)
+            else:
+                print("行列式结果:", result)
+        while True:
+            ans = input("Continue？(y/n): ").strip().lower()
+            if ans[0] in ('y', 'n','Y','N'):
+                break
+            print("请输入 y 或 n")
+        if ans == 'n' or ans=='N':
+            print("BYEEEEEE")
+            break
 
 #If you open it, then you'll get it(No,then you have to take the power of Deadly
 if __name__=='__main__':
