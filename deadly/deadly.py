@@ -1,6 +1,8 @@
 #deadly1.3.5-withnodebug by xgdb
 #20250906 add more old-virsion-friendly codes
+#20260505 add signal module
 
+import signal
 import sys
 import time
 import operator as op
@@ -18,6 +20,7 @@ class DeadlyError(Exception):
 
 def deadly(t1='Deadly! '):
 #20260122 add a way to know type(old-vision-friendly, of course)
+#20260505 add something to prevent someone use ctrl+c
     t=''
     if type(t1) != str:
         if not str(t1):
@@ -25,10 +28,21 @@ def deadly(t1='Deadly! '):
         else:
             t1=str(t1)
         #return None
-    while t!=t1:
-    #想改啥随便改，这玩意的目的就是有个人在你耳边反复说"deadly"才诞生的
-        print('deadly')
-        t=input('>>> ')
+    def ctrl_c_handler(signum, frame):
+        print("\n检测到 Ctrl+C,想跑是吧\n(Do you ^C?)")
+    old_handler = signal.signal(signal.SIGINT, ctrl_c_handler)
+    try:
+        while t!=t1:
+        #想改啥随便改，这玩意的目的就是有个人在你耳边反复说"deadly"才诞生的
+            print('deadly')
+            try:
+                t=input('>>> ')
+            except (OSError,KeyboardInterrupt,EOFError):
+            # 某些系统下 input 因信号中断会抛出 OSError和EOFError，这里兜底
+            # 但我们的自定义 handler 已避免 KeyboardInterrupt，这里作为保险
+                continue
+    finally:
+        signal.signal(signal.SIGINT, old_handler)
 def deadly_exit(t2='Deadly! '):
     deadly(t2)
     sys.exit()
