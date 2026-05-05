@@ -1,4 +1,4 @@
-#deadly1.3.5-withnodebug by xgdb
+#deadly1.3.5-beta2 by xgdb
 #20250906 add more old-virsion-friendly codes
 #20260505 add signal module
 
@@ -33,8 +33,7 @@ def deadly(t1='Deadly! '):
     old_handler = signal.signal(signal.SIGINT, ctrl_c_handler)
     try:
         while t!=t1:
-        #想改啥随便改，这玩意的目的就是有个人在你耳边反复说"deadly"才诞生的
-            print('deadly')
+            print('deadly') #想改啥随便改，这玩意的目的就是有个人在你耳边反复说"deadly"才诞生的
             try:
                 t=input('>>> ')
             except (OSError,KeyboardInterrupt,EOFError):
