@@ -1,1 +1,11 @@
 /deadly/building_class.py
+.idea/
+
+.claude/
+.cursor/
+.aider*
+.crush/
+.gemini/
+
+AGENT.md
+CLAUDE.md
