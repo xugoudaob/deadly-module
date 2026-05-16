@@ -1,11 +1,17 @@
-/deadly/building_class.py
-.idea/
+*.egg-info/
+*.egg
+build/
+dist/
 
+#To be continued...
+/deadly/building_class.py
+
+#others
+.idea/
 .claude/
 .cursor/
 .aider*
 .crush/
 .gemini/
-
 AGENT.md
 CLAUDE.md

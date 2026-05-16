@@ -24,7 +24,8 @@ def deadly(t1='Deadly! '):
     t=''
     if type(t1) != str:
         if not str(t1):
-            raise DeadlyError("Maybe the programmer could not know which type on the function")
+            err0="Maybe the programmer could not know which type on the function"
+            raise DeadlyError(err0)
         else:
             t1=str(t1)
         #return None
@@ -33,7 +34,7 @@ def deadly(t1='Deadly! '):
     old_handler = signal.signal(signal.SIGINT, ctrl_c_handler)
     try:
         while t!=t1:
-            print('deadly') #想改啥随便改，这玩意的目的就是有个人在你耳边反复说"deadly"才诞生的
+            print('deadly') #想改啥随便改，这玩意的目的就是有个人在你耳边反复说"你个deadly"才诞生的
             try:
                 t=input('>>> ')
             except (OSError,KeyboardInterrupt,EOFError):
@@ -429,8 +430,9 @@ def determinant():
             print("BYEEEEEE")
             break
 
-#If you open it, then you'll get it(No,then you have to take the power of Deadly
+#If you open it, then you'll get it(No,then you have to take the power of Deadly...)
 if __name__=='__main__':
     print('你是真的deadly(You\'re a truly Deadly)你知道吗?\n')
     deadly()
-    raise DeadlyError("Tried to open a file without import.")
+    err1="Tried to open the file without import."
+    raise DeadlyError(err1)
